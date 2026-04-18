@@ -19,6 +19,7 @@ h1{color:var(--accent);font-size:26px;text-align:center;margin-bottom:4px}
 .day-tab{padding:10px 16px;font-size:13px;font-weight:600;background:var(--bg2);border:none;border-radius:10px;color:var(--text);white-space:nowrap;cursor:pointer}
 .day-tab.active{background:var(--accent)}
 .day-tab.rest{background:var(--orange)}
+.day-tab.cardio{background:var(--blue)}
 .card{background:var(--bg2);border-radius:16px;padding:16px;margin-bottom:12px}
 .ex-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
 .ex-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
@@ -139,23 +140,26 @@ h1{color:var(--accent);font-size:26px;text-align:center;margin-bottom:4px}
 .export-btn{width:100%;padding:14px;background:var(--blue);border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:600;cursor:pointer;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:8px}
 .end-week-btn{width:100%;padding:14px;background:var(--orange);border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:600;cursor:pointer;margin-top:12px}
 .rest-day-card{background:linear-gradient(135deg,var(--orange) 0%,#cc7700 100%);border-radius:16px;padding:20px;text-align:center;margin-bottom:16px}
+.cardio-day-card{background:linear-gradient(135deg,var(--blue) 0%,#0055cc 100%);border-radius:16px;padding:20px;text-align:center;margin-bottom:16px}
 .rest-day-title{font-size:20px;font-weight:700;margin-bottom:8px}
 .rest-day-subtitle{font-size:14px;opacity:0.9}
+.day-label{background:var(--accent);color:#fff;padding:12px 16px;border-radius:12px;margin-bottom:16px;text-align:center;font-weight:700;font-size:15px}
+.core-section{background:linear-gradient(135deg,var(--purple) 0%,#7030a0 100%);border-radius:16px;padding:16px;margin-top:16px;margin-bottom:12px}
+.core-title{font-size:16px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 </style>
 </head>
 <body>
 <h1>AMR Fitness</h1>
-<p class="subtitle">برنامجك الشخصي للياقة والصحة</p>
+<p class="subtitle">برنامجك الشخصي للياقة وخسارة الوزن</p>
 
 <div id="sec-workout" class="section active">
 <div class="day-tabs">
-<button class="day-tab" onclick="showDay(0)">السبت</button>
+<button class="day-tab active" onclick="showDay(0)">السبت</button>
 <button class="day-tab" onclick="showDay(1)">الأحد</button>
-<button class="day-tab rest" onclick="showDay(2)">الاثنين</button>
-<button class="day-tab active" onclick="showDay(3)">الثلاثاء</button>
-<button class="day-tab" onclick="showDay(4)">الأربعاء</button>
-<button class="day-tab rest" onclick="showDay(5)">الخميس</button>
-<button class="day-tab rest" onclick="showDay(6)">الجمعة</button>
+<button class="day-tab" onclick="showDay(2)">الثلاثاء</button>
+<button class="day-tab" onclick="showDay(3)">الأربعاء</button>
+<button class="day-tab cardio" onclick="showDay(4)">الخميس</button>
+<button class="day-tab rest" onclick="showDay(5)">الجمعة</button>
 </div>
 <div id="day-content"></div>
 </div>
@@ -258,7 +262,7 @@ h1{color:var(--accent);font-size:26px;text-align:center;margin-bottom:4px}
 </div>
 <div class="weight-card">
 <div class="weight-title">⚖️ تتبع الوزن</div>
-<div class="weight-current" id="w-current">93 kg</div>
+<div class="weight-current" id="w-current">91.5 kg</div>
 <div class="weight-change" id="w-change">الهدف: خسارة الدهون</div>
 <div class="weight-inp"><input type="number" step="0.1" id="inp-weight" placeholder="الوزن (كجم)"><button onclick="saveWeight()">تسجيل</button></div>
 </div>
@@ -272,6 +276,7 @@ h1{color:var(--accent);font-size:26px;text-align:center;margin-bottom:4px}
 <div class="stat-card"><div class="stat-label">إجمالي الأوزان</div><div class="stat-val" id="s-total">0 kg</div></div>
 <div class="stat-card"><div class="stat-label">دقائق الكارديو</div><div class="stat-val" id="s-cardio">0</div></div>
 <div class="stat-card"><div class="stat-label">دقائق السونا</div><div class="stat-val" id="s-sauna">0</div></div>
+<div class="stat-card"><div class="stat-label">تمارين البطن</div><div class="stat-val" id="s-core">0</div></div>
 </div>
 <button class="export-btn" onclick="exportReport()">📤 تصدير التقرير للمدرب</button>
 <button class="end-week-btn" onclick="endWeek()">📊 إنهاء الأسبوع وعرض التقرير</button>
@@ -289,11 +294,11 @@ h1{color:var(--accent);font-size:26px;text-align:center;margin-bottom:4px}
 <div class="profile-card">
 <div class="profile-row"><span class="profile-label">الاسم</span><span class="profile-val">AMR Khalil</span></div>
 <div class="profile-row"><span class="profile-label">العمر</span><span class="profile-val">37 سنة</span></div>
-<div class="profile-row"><span class="profile-label">الوزن الحالي</span><span class="profile-val" id="p-weight">93 kg</span></div>
-<div class="profile-row"><span class="profile-label">الهدف</span><span class="profile-val">خسارة الدهون + لياقة</span></div>
-<div class="profile-row"><span class="profile-label">أيام التدريب</span><span class="profile-val">4 أيام/أسبوع</span></div>
+<div class="profile-row"><span class="profile-label">الوزن الحالي</span><span class="profile-val" id="p-weight">91.5 kg</span></div>
+<div class="profile-row"><span class="profile-label">الهدف</span><span class="profile-val">خسارة الدهون</span></div>
+<div class="profile-row"><span class="profile-label">أيام التدريب</span><span class="profile-val">4 أيام حديد + كارديو</span></div>
 <div class="profile-row"><span class="profile-label">السعرات اليومية</span><span class="profile-val">1900 سعرة</span></div>
-<div class="profile-row"><span class="profile-label">الكارديو الأسبوعي</span><span class="profile-val">130+ دقيقة</span></div>
+<div class="profile-row"><span class="profile-label">البرنامج</span><span class="profile-val">Push/Pull + Core</span></div>
 </div>
 </div>
 
@@ -326,52 +331,66 @@ h1{color:var(--accent);font-size:26px;text-align:center;margin-bottom:4px}
 
 <script>
 var DAYS=[
-{name:'السبت',type:'upper',label:'Upper A',exercises:[
+// السبت - Upper Push
+{name:'السبت',type:'push',label:'Upper Push — صدر + كتف + تراي',exercises:[
 {n:'Barbell Bench Press',s:4,r:10,w:20,rpe:7,icon:'🏋️',color:'#E1F5EE',desc:'استلقِ على البنش، أنزل البار لصدرك ثم ادفع لأعلى',yt:'https://www.youtube.com/watch?v=rT7DgCr-3pg'},
-{n:'Incline Dumbbell Press',s:4,r:10,w:12,rpe:7,icon:'🏋️',color:'#E1F5EE',desc:'بنش مائل 30-45 درجة، ادفع الدمبلز لأعلى',yt:'https://www.youtube.com/watch?v=8iPEnn-ltC8'},
-{n:'Barbell Row',s:4,r:10,w:25,rpe:7,icon:'🚣',color:'#E6F1FB',desc:'انحنِ للأمام 45 درجة، اسحب البار لبطنك',yt:'https://www.youtube.com/watch?v=FWJR5Ve8bnQ'},
-{n:'Lat Pulldown',s:4,r:12,w:35,rpe:7,icon:'🚣',color:'#E6F1FB',desc:'اسحب البار لصدرك مع إبقاء الصدر مرفوعاً',yt:'https://www.youtube.com/watch?v=CAwf7n6Luuc'},
-{n:'Dumbbell OHP',s:3,r:8,w:12,rpe:7,icon:'🙆',color:'#EEEDFE',desc:'ادفع الدمبلز من الكتفين لأعلى الرأس',yt:'https://www.youtube.com/watch?v=qEwKCR5JCog'},
-{n:'Lateral Raise',s:4,r:10,w:6,rpe:7,icon:'🙆',color:'#EEEDFE',desc:'ارفع الدمبلز جانبياً حتى مستوى الكتف',yt:'https://www.youtube.com/watch?v=3VcKaXpzqRo'},
-{n:'Tricep Pushdown',s:4,r:10,w:20,rpe:7,icon:'💪',color:'#FBEAF0',desc:'ادفع الكيبل لأسفل مع تثبيت المرفقين',yt:'https://www.youtube.com/watch?v=2-LAMcpzODU'}
+{n:'Incline Dumbbell Press',s:3,r:12,w:12,rpe:7,icon:'🏋️',color:'#E1F5EE',desc:'بنش مائل 30-45 درجة، ادفع الدمبلز لأعلى',yt:'https://www.youtube.com/watch?v=8iPEnn-ltC8'},
+{n:'Cable Fly',s:3,r:15,w:10,rpe:7,icon:'🦋',color:'#E1F5EE',desc:'اسحب الكيبل من الجانبين للمنتصف أمام صدرك',yt:'https://www.youtube.com/watch?v=Iwe6AmxVf7o'},
+{n:'Barbell OHP',s:4,r:10,w:20,rpe:7,icon:'🙆',color:'#EEEDFE',desc:'ادفع البار من الكتفين لأعلى الرأس',yt:'https://www.youtube.com/watch?v=2yjwXTZQDDI'},
+{n:'Lateral Raise',s:3,r:15,w:6,rpe:7,icon:'🙆',color:'#EEEDFE',desc:'ارفع الدمبلز جانبياً حتى مستوى الكتف',yt:'https://www.youtube.com/watch?v=3VcKaXpzqRo'},
+{n:'Tricep Pushdown',s:3,r:15,w:20,rpe:7,icon:'💪',color:'#FBEAF0',desc:'ادفع الكيبل لأسفل مع تثبيت المرفقين',yt:'https://www.youtube.com/watch?v=2-LAMcpzODU'},
+{n:'Overhead Tricep Ext',s:3,r:12,w:15,rpe:7,icon:'💪',color:'#FBEAF0',desc:'امسك الكيبل خلف رأسك وافرد ذراعيك لأعلى',yt:'https://www.youtube.com/watch?v=YbX7Wd8jQ-Q'}
 ],cardio:20,sauna:10},
-{name:'الأحد',type:'lower',label:'Lower A',exercises:[
-{n:'Barbell Back Squat',s:4,r:10,w:40,rpe:7,icon:'🦵',color:'#FAEEDA',desc:'البار على الترابس، انزل حتى يصبح الفخذ موازياً للأرض',yt:'https://www.youtube.com/watch?v=bEv6CCg2BC8'},
-{n:'Leg Press',s:3,r:12,w:60,rpe:7,icon:'🦵',color:'#FAEEDA',desc:'قدماك بعرض الكتفين، انزل حتى 90 درجة ثم ادفع',yt:'https://www.youtube.com/watch?v=IZxyjW7MPJQ'},
+
+// الأحد - Lower + Core
+{name:'الأحد',type:'lower',label:'Lower A + Core — أرجل + بطن',exercises:[
+{n:'Barbell Squat',s:4,r:10,w:40,rpe:7,icon:'🦵',color:'#FAEEDA',desc:'البار على الترابس، انزل حتى يصبح الفخذ موازياً للأرض',yt:'https://www.youtube.com/watch?v=bEv6CCg2BC8'},
+{n:'Leg Press',s:3,r:12,w:80,rpe:7,icon:'🦵',color:'#FAEEDA',desc:'قدماك بعرض الكتفين، انزل حتى 90 درجة ثم ادفع',yt:'https://www.youtube.com/watch?v=IZxyjW7MPJQ'},
 {n:'Romanian Deadlift',s:4,r:10,w:40,rpe:7,icon:'🦵',color:'#FAEEDA',desc:'ادفع الحوض للخلف مع ركبة مثنية قليلاً',yt:'https://www.youtube.com/watch?v=7j-2w4-P14I'},
-{n:'Leg Curl',s:3,r:12,w:25,rpe:7,icon:'🦵',color:'#FAEEDA',desc:'اثنِ ركبتيك لسحب الوزن نحوك',yt:'https://www.youtube.com/watch?v=1Tq3QdYUuHs'},
-{n:'Leg Extension',s:3,r:12,w:25,rpe:7,icon:'🦵',color:'#FAEEDA',desc:'افرد ركبتيك بالكامل، اضغط في القمة',yt:'https://www.youtube.com/watch?v=YyvSfVjQeL0'},
-{n:'Standing Calf Raise',s:3,r:15,w:40,rpe:7,icon:'🦶',color:'#FAECE7',desc:'ارفع على أصابع قدميك، انزل ببطء',yt:'https://www.youtube.com/watch?v=gwLzBJYoWlI'},
-{n:'Plank',s:3,r:'45s',w:0,rpe:0,icon:'🧘',color:'#F1EFE8',desc:'جسمك خط مستقيم من الرأس للقدم',yt:'https://www.youtube.com/watch?v=ASdvN_XEl_c'}
+{n:'Leg Curl',s:3,r:12,w:30,rpe:7,icon:'🦵',color:'#FAEEDA',desc:'اثنِ ركبتيك لسحب الوزن نحوك',yt:'https://www.youtube.com/watch?v=1Tq3QdYUuHs'},
+{n:'Standing Calf Raise',s:3,r:15,w:40,rpe:7,icon:'🦶',color:'#FAECE7',desc:'ارفع على أصابع قدميك، انزل ببطء',yt:'https://www.youtube.com/watch?v=gwLzBJYoWlI'}
+],core:[
+{n:'Hanging Leg Raise',s:3,r:12,w:0,rpe:7,icon:'🧘',color:'#EEEDFE',desc:'تعلق على العقلة وارفع رجليك مستقيمتين',yt:'https://www.youtube.com/watch?v=hdng3Nm1x_E'},
+{n:'Cable Crunch',s:3,r:15,w:25,rpe:7,icon:'🧘',color:'#EEEDFE',desc:'اركع أمام الكيبل، انحنِ بضغط البطن',yt:'https://www.youtube.com/watch?v=AV5PmZJIrrw'},
+{n:'Plank',s:3,r:'45s',w:0,rpe:0,icon:'🧘',color:'#EEEDFE',desc:'جسمك خط مستقيم من الرأس للقدم',yt:'https://www.youtube.com/watch?v=ASdvN_XEl_c'}
 ],cardio:15,sauna:10},
-{name:'الاثنين',type:'rest',label:'راحة نشطة',exercises:[],cardio:30,sauna:0},
-{name:'الثلاثاء',type:'upper',label:'Upper A',exercises:[
-{n:'Barbell Bench Press',s:4,r:10,w:20,rpe:7,icon:'🏋️',color:'#E1F5EE',desc:'استلقِ على البنش، أنزل البار لصدرك ثم ادفع لأعلى',yt:'https://www.youtube.com/watch?v=rT7DgCr-3pg'},
-{n:'Incline Dumbbell Press',s:4,r:10,w:12,rpe:7,icon:'🏋️',color:'#E1F5EE',desc:'بنش مائل 30-45 درجة، ادفع الدمبلز لأعلى',yt:'https://www.youtube.com/watch?v=8iPEnn-ltC8'},
+
+// الثلاثاء - Upper Pull
+{name:'الثلاثاء',type:'pull',label:'Upper Pull — ظهر + باي',exercises:[
 {n:'Barbell Row',s:4,r:10,w:25,rpe:7,icon:'🚣',color:'#E6F1FB',desc:'انحنِ للأمام 45 درجة، اسحب البار لبطنك',yt:'https://www.youtube.com/watch?v=FWJR5Ve8bnQ'},
-{n:'Lat Pulldown',s:4,r:12,w:35,rpe:7,icon:'🚣',color:'#E6F1FB',desc:'اسحب البار لصدرك مع إبقاء الصدر مرفوعاً',yt:'https://www.youtube.com/watch?v=CAwf7n6Luuc'},
-{n:'Dumbbell OHP',s:3,r:8,w:12,rpe:7,icon:'🙆',color:'#EEEDFE',desc:'ادفع الدمبلز من الكتفين لأعلى الرأس',yt:'https://www.youtube.com/watch?v=qEwKCR5JCog'},
-{n:'Lateral Raise',s:4,r:10,w:6,rpe:7,icon:'🙆',color:'#EEEDFE',desc:'ارفع الدمبلز جانبياً حتى مستوى الكتف',yt:'https://www.youtube.com/watch?v=3VcKaXpzqRo'},
-{n:'Tricep Pushdown',s:4,r:10,w:20,rpe:7,icon:'💪',color:'#FBEAF0',desc:'ادفع الكيبل لأسفل مع تثبيت المرفقين',yt:'https://www.youtube.com/watch?v=2-LAMcpzODU'}
+{n:'Lat Pulldown',s:4,r:10,w:40,rpe:7,icon:'🚣',color:'#E6F1FB',desc:'اسحب البار لصدرك مع إبقاء الصدر مرفوعاً',yt:'https://www.youtube.com/watch?v=CAwf7n6Luuc'},
+{n:'Dumbbell Row',s:3,r:10,w:14,rpe:7,icon:'🚣',color:'#E6F1FB',desc:'يد واحدة على البنش، اسحب الدمبل لجانبك',yt:'https://www.youtube.com/watch?v=pYcpY20QaE8'},
+{n:'Face Pull',s:3,r:15,w:15,rpe:7,icon:'🎯',color:'#E6F1FB',desc:'اسحب الحبل نحو وجهك مع فتح المرفقين',yt:'https://www.youtube.com/watch?v=rep-qVOkqgk'},
+{n:'Barbell Curl',s:3,r:12,w:15,rpe:7,icon:'💪',color:'#FBEAF0',desc:'امسك البار واثنِ مرفقيك لرفعه للكتفين',yt:'https://www.youtube.com/watch?v=kwG2ipFRgfo'},
+{n:'Hammer Curl',s:3,r:12,w:10,rpe:7,icon:'💪',color:'#FBEAF0',desc:'الدمبل عمودي، اثنِ المرفق للرفع',yt:'https://www.youtube.com/watch?v=zC3nLlEvin4'},
+{n:'Incline Dumbbell Curl',s:3,r:10,w:8,rpe:7,icon:'💪',color:'#FBEAF0',desc:'استلقِ على بنش مائل للخلف، كيرل بالدمبل',yt:'https://www.youtube.com/watch?v=soxrZlIl35U'}
 ],cardio:20,sauna:10},
-{name:'الأربعاء',type:'lower',label:'Lower B',exercises:[
-{n:'Leg Press',s:4,r:10,w:70,rpe:7,icon:'🦵',color:'#FAEEDA',desc:'قدماك أعلى على المنصة لتركيز على الخلفية',yt:'https://www.youtube.com/watch?v=IZxyjW7MPJQ'},
-{n:'Bulgarian Split Squat',s:3,r:10,w:10,rpe:7,icon:'🦵',color:'#FAEEDA',desc:'رجل خلفية على البنش، انزل ثم اصعد',yt:'https://www.youtube.com/watch?v=2C-uNgKwPLE'},
-{n:'Stiff Leg Deadlift',s:4,r:10,w:40,rpe:7,icon:'🦵',color:'#FAEEDA',desc:'مثل RDL لكن الركبة مستقيمة أكثر',yt:'https://www.youtube.com/watch?v=1uDiW5--rAE'},
-{n:'Leg Curl',s:3,r:12,w:25,rpe:7,icon:'🦵',color:'#FAEEDA',desc:'اثنِ ركبتيك لسحب الوزن',yt:'https://www.youtube.com/watch?v=1Tq3QdYUuHs'},
+
+// الأربعاء - Lower + Core
+{name:'الأربعاء',type:'lower',label:'Lower B + Core — أرجل + بطن',exercises:[
+{n:'Leg Press',s:4,r:10,w:100,rpe:7,icon:'🦵',color:'#FAEEDA',desc:'قدماك أعلى على المنصة لتركيز على الخلفية',yt:'https://www.youtube.com/watch?v=IZxyjW7MPJQ'},
+{n:'Bulgarian Split Squat',s:3,r:10,w:15,rpe:7,icon:'🦵',color:'#FAEEDA',desc:'رجل خلفية على البنش، انزل ثم اصعد',yt:'https://www.youtube.com/watch?v=2C-uNgKwPLE'},
+{n:'Stiff Leg Deadlift',s:4,r:10,w:35,rpe:7,icon:'🦵',color:'#FAEEDA',desc:'مثل RDL لكن الركبة مستقيمة أكثر',yt:'https://www.youtube.com/watch?v=1uDiW5--rAE'},
 {n:'Hip Thrust',s:3,r:12,w:40,rpe:7,icon:'🍑',color:'#FAEEDA',desc:'ادفع الحوض لأعلى واضغط المؤخرة',yt:'https://www.youtube.com/watch?v=SEdqd1n0cvg'},
-{n:'Seated Calf Raise',s:3,r:15,w:20,rpe:7,icon:'🦶',color:'#FAECE7',desc:'ارفع على أصابع قدميك',yt:'https://www.youtube.com/watch?v=JbyjNymZOt0'},
-{n:'Cable Crunch',s:3,r:15,w:25,rpe:7,icon:'🧘',color:'#F1EFE8',desc:'اركع أمام الكيبل، انحنِ بضغط البطن',yt:'https://www.youtube.com/watch?v=AV5PmZJIrrw'}
+{n:'Seated Calf Raise',s:3,r:15,w:40,rpe:7,icon:'🦶',color:'#FAECE7',desc:'ارفع على أصابع قدميك',yt:'https://www.youtube.com/watch?v=JbyjNymZOt0'}
+],core:[
+{n:'Ab Wheel',s:3,r:10,w:0,rpe:7,icon:'🎡',color:'#EEEDFE',desc:'امسك العجلة وادفعها للأمام ثم ارجع',yt:'https://www.youtube.com/watch?v=rqiTPdK1c_I'},
+{n:'Pallof Press',s:3,r:12,w:15,rpe:7,icon:'🧘',color:'#EEEDFE',desc:'امسك الكيبل وادفعه للأمام مع مقاومة الدوران',yt:'https://www.youtube.com/watch?v=AH_QZLm_0-s'},
+{n:'Landmine Rotation',s:3,r:10,w:10,rpe:7,icon:'🔄',color:'#EEEDFE',desc:'امسك البار ودوّر من جانب لجانب',yt:'https://www.youtube.com/watch?v=_LF1NjLqkAA'}
 ],cardio:15,sauna:10},
-{name:'الخميس',type:'rest',label:'راحة نشطة',exercises:[],cardio:30,sauna:0},
+
+// الخميس - كارديو فقط
+{name:'الخميس',type:'cardio',label:'كارديو فقط',exercises:[],cardio:45,sauna:10},
+
+// الجمعة - راحة
 {name:'الجمعة',type:'rest',label:'راحة كاملة',exercises:[],cardio:0,sauna:0}
 ];
 
 var MEALS={breakfast:[{n:'بيض مخفوق مع خبز أسمر',cal:350,pro:22,carb:30,fat:15,d:'3 بيضات + شريحتين خبز أسمر'},{n:'شوفان بالموز والعسل',cal:380,pro:12,carb:65,fat:8,d:'60g شوفان + موزة + عسل'},{n:'فول مدمس بالزيت',cal:320,pro:18,carb:40,fat:10,d:'طبق فول + زيت زيتون + خبز'}],lunch:[{n:'صدر دجاج مشوي مع أرز',cal:520,pro:45,carb:55,fat:12,d:'200g دجاج + كوب أرز + سلطة'},{n:'سمك مشوي مع بطاطس',cal:480,pro:40,carb:45,fat:14,d:'200g سمك + بطاطس مشوية'},{n:'لحم مفروم مع معكرونة',cal:550,pro:38,carb:60,fat:16,d:'150g لحم مفروم + معكرونة'}],dinner:[{n:'سلطة تونة',cal:350,pro:35,carb:20,fat:15,d:'علبة تونة + خضار + زيت زيتون'},{n:'زبادي يوناني مع مكسرات',cal:300,pro:20,carb:25,fat:12,d:'200g زبادي + 30g مكسرات'},{n:'عجة خضار',cal:280,pro:18,carb:15,fat:16,d:'3 بيضات + خضار + جبنة'}],snack:[{n:'تفاحة مع زبدة فول سوداني',cal:200,pro:6,carb:25,fat:10,d:'تفاحة + ملعقة زبدة فول سوداني'},{n:'بروتين شيك',cal:180,pro:25,carb:10,fat:4,d:'سكوب واي بروتين + ماء'},{n:'حمص مع خضار',cal:150,pro:8,carb:18,fat:6,d:'4 ملاعق حمص + خيار وجزر'}]};
 
-var curDay=3,logged={},routineLog={},selMeals={breakfast:null,lunch:null,dinner:null,snack:null};
-var health={burned:0,steps:0,active:0,heart:0,sleep:0,water:0,weight:93,startWeight:93};
-var progress=[],customMeals=[],weeklyHistory=[],currentWeek=1;
+var curDay=0,logged={},coreLogged={},routineLog={},selMeals={breakfast:null,lunch:null,dinner:null,snack:null};
+var health={burned:0,steps:0,active:0,heart:0,sleep:0,water:0,weight:91.5,startWeight:91.5};
+var progress=[],customMeals=[],weeklyHistory=[],currentWeek=2;
 
 function showSec(id,btn){document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active')});document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active')});document.getElementById('sec-'+id).classList.add('active');btn.classList.add('active');if(id==='progress')renderWeeklyReport();}
 function showDay(i){curDay=i;document.querySelectorAll('.day-tab').forEach(function(t,j){t.classList.remove('active');if(j===i)t.classList.add('active');});renderDay();}
@@ -382,15 +401,21 @@ var c=document.getElementById('day-content');
 var html='';
 
 if(day.type==='rest'){
-html+='<div class="rest-day-card"><div class="rest-day-title">🌟 '+day.label+'</div><div class="rest-day-subtitle">'+
-(day.cardio>0?'كارديو '+day.cardio+' دقيقة (مشي/عجلة)':'استرح واستعد للتمرين القادم')+'</div></div>';
-if(day.cardio>0){
+html+='<div class="rest-day-card"><div class="rest-day-title">🌟 '+day.label+'</div><div class="rest-day-subtitle">استرح واستعد للأسبوع القادم</div></div>';
+}
+else if(day.type==='cardio'){
+html+='<div class="cardio-day-card"><div class="rest-day-title">🏃 '+day.label+'</div><div class="rest-day-subtitle">'+day.cardio+' دقيقة مشي سريع أو عجلة</div></div>';
 html+='<div class="routine-card"><div class="routine-title">📋 روتين اليوم</div>';
-html+='<div class="routine-item"><div class="routine-item-info"><span class="routine-item-icon">🚶</span><div><div class="routine-item-text">كارديو (مشي سريع / عجلة)</div><div class="routine-item-time">'+day.cardio+' دقيقة</div></div></div><div class="routine-check'+(routineLog[curDay+'_cardio']?' done':'')+'" onclick="toggleRoutine(\'cardio\')">'+(routineLog[curDay+'_cardio']?'✓':'')+'</div></div>';
+var cardioVal=routineLog[curDay+'_cardio_mins']||'';
+var saunaVal=routineLog[curDay+'_sauna_mins']||'';
+html+='<div class="routine-item" style="flex-wrap:wrap"><div class="routine-item-info"><span class="routine-item-icon">🚶</span><div><div class="routine-item-text">كارديو (مشي/عجلة)</div><div class="routine-item-time">الهدف: '+day.cardio+' دقيقة</div></div></div><div style="display:flex;align-items:center;gap:8px;margin-top:8px;width:100%"><input type="number" placeholder="الدقائق" value="'+cardioVal+'" id="cardio-mins" style="flex:1;padding:10px;border-radius:8px;border:2px solid var(--border);background:var(--bg3);color:var(--text);text-align:center;font-size:14px"><button onclick="saveRoutineMins(\'cardio\')" style="padding:10px 16px;background:var(--accent);border:none;border-radius:8px;color:#fff;font-weight:600">حفظ ✓</button></div></div>';
+if(day.sauna>0){
+html+='<div class="routine-item" style="flex-wrap:wrap"><div class="routine-item-info"><span class="routine-item-icon">🧖</span><div><div class="routine-item-text">سونا</div><div class="routine-item-time">الهدف: '+day.sauna+' دقائق</div></div></div><div style="display:flex;align-items:center;gap:8px;margin-top:8px;width:100%"><input type="number" placeholder="الدقائق" value="'+saunaVal+'" id="sauna-mins" style="flex:1;padding:10px;border-radius:8px;border:2px solid var(--border);background:var(--bg3);color:var(--text);text-align:center;font-size:14px"><button onclick="saveRoutineMins(\'sauna\')" style="padding:10px 16px;background:var(--accent);border:none;border-radius:8px;color:#fff;font-weight:600">حفظ ✓</button></div></div>';
+}
 html+='</div>';
 }
-}else{
-html+='<div style="background:var(--accent);color:#fff;padding:12px 16px;border-radius:12px;margin-bottom:16px;text-align:center"><strong>'+day.label+'</strong> — '+day.name+'</div>';
+else{
+html+='<div class="day-label">'+day.label+'</div>';
 
 day.exercises.forEach(function(e,i){
 var k=curDay+'-'+i;
@@ -402,6 +427,22 @@ html+='<div class="inputs"><div class="inp-grp"><label>SETS</label><input type="
 html+='<button class="log-btn'+(l?' logged':'')+'" onclick="toggleLog(\''+k+'\','+i+')">'+(l?'✓ تم — اضغط للإلغاء':'سجّل التمرين')+'</button></div>';
 });
 
+// Core section
+if(day.core&&day.core.length>0){
+html+='<div class="core-section"><div class="core-title">🔥 تمارين البطن (Core)</div>';
+day.core.forEach(function(e,i){
+var k=curDay+'-core-'+i;
+var l=coreLogged[k];
+html+='<div class="card" style="background:rgba(255,255,255,0.1)"><div class="ex-header"><div class="ex-icon" style="background:'+e.color+'">'+e.icon+'</div><div><div class="ex-name">'+e.n+'</div><div class="ex-meta">'+e.s+' × '+e.r+(e.w?' @ '+e.w+'kg':'')+' • RPE '+e.rpe+'</div></div></div>';
+if(e.desc)html+='<div class="ex-desc">'+e.desc+'</div>';
+if(e.yt)html+='<a href="'+e.yt+'" target="_blank" class="yt-btn">▶️ شاهد الشرح</a>';
+html+='<div class="inputs"><div class="inp-grp"><label>SETS</label><input type="number" value="'+(l?l.s:e.s)+'" id="cs'+k+'"></div><div class="inp-grp"><label>REPS</label><input type="text" value="'+(l?l.r:e.r)+'" id="cr'+k+'"></div><div class="inp-grp"><label>KG</label><input type="number" value="'+(l?l.w:e.w)+'" id="cw'+k+'"></div><div class="inp-grp"><label>RPE</label><input type="number" value="'+(l?l.rpe:e.rpe)+'" id="cp'+k+'" min="1" max="10"></div></div>';
+html+='<button class="log-btn'+(l?' logged':'')+'" onclick="toggleCoreLog(\''+k+'\','+i+')">'+(l?'✓ تم — اضغط للإلغاء':'سجّل التمرين')+'</button></div>';
+});
+html+='</div>';
+}
+
+// Post-workout routine
 html+='<div class="routine-card"><div class="routine-title">🏁 ما بعد الحديد</div>';
 var cardioVal=routineLog[curDay+'_cardio_mins']||'';
 var saunaVal=routineLog[curDay+'_sauna_mins']||'';
@@ -429,6 +470,18 @@ if(w>e.w){progress.push({n:e.n,w:w,d:new Date().getDate()+'/'+(new Date().getMon
 renderDay();save();
 }
 
+function toggleCoreLog(k,i){
+if(coreLogged[k]){delete coreLogged[k];}
+else{
+var s=parseInt(document.getElementById('cs'+k).value)||0;
+var r=document.getElementById('cr'+k).value||0;
+var w=parseInt(document.getElementById('cw'+k).value)||0;
+var p=parseInt(document.getElementById('cp'+k).value)||0;
+coreLogged[k]={s:s,r:r,w:w,rpe:p,date:new Date().toLocaleDateString('ar-EG')};
+}
+renderDay();save();
+}
+
 function toggleRoutine(type){
 var k=curDay+'_'+type;
 routineLog[k]=!routineLog[k];
@@ -444,7 +497,7 @@ renderDay();save();
 
 function getWeekSessions(){
 var count=0;
-[0,1,3,4].forEach(function(d){
+[0,1,2,3].forEach(function(d){
 var hasLog=false;
 for(var i=0;i<10;i++){if(logged[d+'-'+i])hasLog=true;}
 if(hasLog)count++;
@@ -454,7 +507,7 @@ return count;
 
 function getWeekCardio(){
 var total=0;
-for(var i=0;i<7;i++){
+for(var i=0;i<6;i++){
 var mins=routineLog[i+'_cardio_mins'];
 if(mins)total+=parseInt(mins);
 }
@@ -463,11 +516,19 @@ return total;
 
 function getWeekSauna(){
 var total=0;
-for(var i=0;i<7;i++){
+for(var i=0;i<6;i++){
 var mins=routineLog[i+'_sauna_mins'];
 if(mins)total+=parseInt(mins);
 }
 return total;
+}
+
+function getWeekCore(){
+var count=0;
+for(var k in coreLogged){
+if(coreLogged[k])count++;
+}
+return count;
 }
 
 function updateStats(){
@@ -476,6 +537,7 @@ document.getElementById('s-sessions').textContent=sessions+'/4';
 document.getElementById('s-week').textContent=currentWeek;
 document.getElementById('s-cardio').textContent=getWeekCardio()+' د';
 document.getElementById('s-sauna').textContent=getWeekSauna()+' د';
+document.getElementById('s-core').textContent=getWeekCore();
 var total=0;
 for(var k in logged){var l=logged[k];if(l.w)total+=l.w*l.s*l.r;}
 document.getElementById('s-total').textContent=Math.round(total)+' kg';
@@ -488,6 +550,8 @@ function renderWeeklyReport(){
 var r=document.getElementById('weekly-report');
 var sessions=getWeekSessions();
 var cardio=getWeekCardio();
+var sauna=getWeekSauna();
+var core=getWeekCore();
 var total=0;
 for(var k in logged){var l=logged[k];if(l.w)total+=l.w*l.s*l.r;}
 var grade='C',gradeColor='#FF9500',message='استمر في التحسن!';
@@ -499,7 +563,7 @@ else{grade='D';gradeColor='#FF3B30';message='تحتاج مزيد من الالت
 var weightChange=health.weight-health.startWeight;
 var weightText=weightChange<0?'خسرت '+Math.abs(weightChange).toFixed(1)+' kg ⬇️':weightChange>0?'زدت '+weightChange.toFixed(1)+' kg ⬆️':'لم يتغير الوزن';
 
-r.innerHTML='<div class="weekly-report"><div class="weekly-header"><div><div class="weekly-title">📊 ملخص الأسبوع '+currentWeek+'</div><div class="weekly-week">'+new Date().toLocaleDateString('ar-EG',{weekday:'long',year:'numeric',month:'long',day:'numeric'})+'</div></div><div class="weekly-grade" style="background:'+gradeColor+'">'+grade+'</div></div><div class="weekly-stats"><div class="weekly-stat"><div class="weekly-stat-val">'+sessions+'/4</div><div class="weekly-stat-label">جلسات حديد</div></div><div class="weekly-stat"><div class="weekly-stat-val">'+cardio+'</div><div class="weekly-stat-label">دقائق كارديو</div></div><div class="weekly-stat"><div class="weekly-stat-val">'+Math.round(total)+'</div><div class="weekly-stat-label">كجم مرفوعة</div></div><div class="weekly-stat"><div class="weekly-stat-val">'+health.weight+'</div><div class="weekly-stat-label">الوزن الحالي</div></div></div><div class="weekly-message">'+message+'<br><br>'+weightText+'</div></div>';
+r.innerHTML='<div class="weekly-report"><div class="weekly-header"><div><div class="weekly-title">📊 ملخص الأسبوع '+currentWeek+'</div><div class="weekly-week">'+new Date().toLocaleDateString('ar-EG',{weekday:'long',year:'numeric',month:'long',day:'numeric'})+'</div></div><div class="weekly-grade" style="background:'+gradeColor+'">'+grade+'</div></div><div class="weekly-stats"><div class="weekly-stat"><div class="weekly-stat-val">'+sessions+'/4</div><div class="weekly-stat-label">جلسات حديد</div></div><div class="weekly-stat"><div class="weekly-stat-val">'+cardio+'</div><div class="weekly-stat-label">دقائق كارديو</div></div><div class="weekly-stat"><div class="weekly-stat-val">'+core+'</div><div class="weekly-stat-label">تمارين بطن</div></div><div class="weekly-stat"><div class="weekly-stat-val">'+health.weight+'</div><div class="weekly-stat-label">الوزن الحالي</div></div></div><div class="weekly-message">'+message+'<br><br>'+weightText+'</div></div>';
 renderWeeklyHistory();
 }
 
@@ -511,6 +575,8 @@ else{h.innerHTML=weeklyHistory.map(function(w){return '• الأسبوع '+w.we
 function exportReport(){
 var sessions=getWeekSessions();
 var cardio=getWeekCardio();
+var sauna=getWeekSauna();
+var core=getWeekCore();
 var total=0;
 for(var k in logged){var l=logged[k];if(l.w)total+=l.w*l.s*l.r;}
 
@@ -520,7 +586,8 @@ report+='📅 الأسبوع: '+currentWeek+'\n';
 report+='📆 التاريخ: '+new Date().toLocaleDateString('ar-EG')+'\n\n';
 report+='🏋️ الجلسات: '+sessions+'/4\n';
 report+='🚶 الكارديو: '+cardio+' دقيقة\n';
-report+='🧖 السونا: '+getWeekSauna()+' دقيقة\n';
+report+='🧖 السونا: '+sauna+' دقيقة\n';
+report+='🔥 تمارين البطن: '+core+'\n';
 report+='💪 الأوزان: '+Math.round(total)+' kg\n';
 report+='⚖️ الوزن: '+health.weight+' kg\n';
 report+='👟 الخطوات: '+health.steps+'\n';
@@ -535,6 +602,15 @@ if(DAYS[d]&&DAYS[d].exercises[i]){
 var e=DAYS[d].exercises[i];
 var l=logged[k];
 report+=DAYS[d].name+': '+e.n+' — '+l.s+'×'+l.r+' @ '+l.w+'kg (RPE '+l.rpe+')\n';
+}}
+for(var k in coreLogged){
+var parts=k.split('-');
+var d=parseInt(parts[0]);
+var coreIdx=parseInt(parts[2]);
+if(DAYS[d]&&DAYS[d].core&&DAYS[d].core[coreIdx]){
+var e=DAYS[d].core[coreIdx];
+var l=coreLogged[k];
+report+=DAYS[d].name+': '+e.n+' — '+l.s+'×'+l.r+(l.w?' @ '+l.w+'kg':'')+' (RPE '+l.rpe+')\n';
 }}
 report+='\n━━━━━━━━━━━━━━━━━━━━';
 
@@ -559,7 +635,7 @@ var cardio=getWeekCardio();
 var grade='C';
 if(sessions>=4)grade='A';else if(sessions>=3)grade='B';else if(sessions<2)grade='D';
 weeklyHistory.push({week:currentWeek,sessions:sessions,cardio:cardio,grade:grade,weight:health.weight});
-currentWeek++;logged={};routineLog={};health.startWeight=health.weight;
+currentWeek++;logged={};coreLogged={};routineLog={};health.startWeight=health.weight;
 save();updateStats();renderWeeklyReport();
 alert('🎉 تم إنهاء الأسبوع '+(currentWeek-1)+'!\n\nالتقييم: '+grade+'\nالجلسات: '+sessions+'/4\nالكارديو: '+cardio+' دقيقة\n\nبداية أسبوع جديد!');
 }
@@ -580,8 +656,8 @@ function renderCustomMeals(){var c=document.getElementById('custom-meals');if(cu
 function toggleCustomMeal(i){customMeals[i].selected=!customMeals[i].selected;renderCustomMeals();updateMacros();save();}
 function deleteCustomMeal(i){customMeals.splice(i,1);renderCustomMeals();updateMacros();save();}
 
-function save(){try{localStorage.setItem('amr_fit_v6',JSON.stringify({logged:logged,routineLog:routineLog,selMeals:selMeals,health:health,progress:progress,customMeals:customMeals,weeklyHistory:weeklyHistory,currentWeek:currentWeek}));}catch(e){}}
-function load(){try{var d=localStorage.getItem('amr_fit_v6');if(d){var p=JSON.parse(d);logged=p.logged||{};routineLog=p.routineLog||{};selMeals=p.selMeals||{breakfast:null,lunch:null,dinner:null,snack:null};health=p.health||{burned:0,steps:0,active:0,heart:0,sleep:0,water:0,weight:93,startWeight:93};progress=p.progress||[];customMeals=p.customMeals||[];weeklyHistory=p.weeklyHistory||[];currentWeek=p.currentWeek||1;document.getElementById('h-burned').textContent=Math.round(health.burned);document.getElementById('h-steps').textContent=health.steps.toLocaleString();document.getElementById('h-active').textContent=Math.round(health.active);document.getElementById('h-heart').textContent=health.heart||'--';document.getElementById('h-sleep').textContent=health.sleep;document.getElementById('w-current').textContent=health.weight+' kg';document.getElementById('p-weight').textContent=health.weight+' kg';}}catch(e){}}
+function save(){try{localStorage.setItem('amr_fit_v8',JSON.stringify({logged:logged,coreLogged:coreLogged,routineLog:routineLog,selMeals:selMeals,health:health,progress:progress,customMeals:customMeals,weeklyHistory:weeklyHistory,currentWeek:currentWeek}));}catch(e){}}
+function load(){try{var d=localStorage.getItem('amr_fit_v8');if(d){var p=JSON.parse(d);logged=p.logged||{};coreLogged=p.coreLogged||{};routineLog=p.routineLog||{};selMeals=p.selMeals||{breakfast:null,lunch:null,dinner:null,snack:null};health=p.health||{burned:0,steps:0,active:0,heart:0,sleep:0,water:0,weight:91.5,startWeight:91.5};progress=p.progress||[];customMeals=p.customMeals||[];weeklyHistory=p.weeklyHistory||[];currentWeek=p.currentWeek||2;document.getElementById('h-burned').textContent=Math.round(health.burned);document.getElementById('h-steps').textContent=health.steps.toLocaleString();document.getElementById('h-active').textContent=Math.round(health.active);document.getElementById('h-heart').textContent=health.heart||'--';document.getElementById('h-sleep').textContent=health.sleep;document.getElementById('w-current').textContent=health.weight+' kg';document.getElementById('p-weight').textContent=health.weight+' kg';}}catch(e){}}
 
 document.querySelectorAll('.modal').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('show');});});
 
