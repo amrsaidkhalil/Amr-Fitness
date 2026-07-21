@@ -40,6 +40,10 @@ body{font-family:'Cairo',-apple-system,sans-serif;background:var(--black);color:
 /* Day Tabs */
 .tabs{display:flex;gap:8px;overflow-x:auto;padding:0 0 14px;margin-bottom:18px;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
+.alt-row{display:flex;gap:6px;overflow-x:auto;margin-bottom:12px;scrollbar-width:none}
+.alt-row::-webkit-scrollbar{display:none}
+.alt-chip{padding:8px 14px;background:var(--dark3);border:1px solid var(--border);border-radius:10px;color:var(--gray);font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer;font-family:'Cairo',sans-serif}
+.alt-chip.active{background:var(--purple);border-color:var(--purple);color:#fff}
 .tab{padding:11px 18px;font-size:13px;font-weight:700;font-family:'Cairo',sans-serif;background:var(--dark3);border:1px solid var(--border);border-radius:14px;color:var(--gray);white-space:nowrap;cursor:pointer;transition:all .25s ease}
 .tab.active{background:linear-gradient(135deg,var(--red),var(--orange));color:var(--white);border-color:transparent;box-shadow:0 4px 18px var(--red-glow)}
 .tab.cardio-tab{background:linear-gradient(135deg,var(--blue),var(--cyan));color:var(--white);border-color:transparent}
@@ -239,7 +243,7 @@ body{font-family:'Cairo',-apple-system,sans-serif;background:var(--black);color:
 <header class="hdr">
   <div class="hdr-logo">Personal Fitness</div>
   <h1 class="hdr-title">AMR Fitness</h1>
-  <p class="hdr-sub">أسبوع 13 — برنامج خسارة الدهون</p>
+  <p class="hdr-sub">أسبوع 15 — برنامج خسارة الدهون</p>
 </header>
 
 <!-- WORKOUT -->
@@ -247,10 +251,11 @@ body{font-family:'Cairo',-apple-system,sans-serif;background:var(--black);color:
   <div class="tabs">
     <button class="tab active" onclick="showDay(0)">السبت</button>
     <button class="tab" onclick="showDay(1)">الأحد</button>
-    <button class="tab" onclick="showDay(2)">الثلاثاء</button>
-    <button class="tab" onclick="showDay(3)">الأربعاء</button>
-    <button class="tab cardio-tab" onclick="showDay(4)">الخميس</button>
-    <button class="tab rest-tab" onclick="showDay(5)">الجمعة</button>
+    <button class="tab cardio-tab" onclick="showDay(2)">الاثنين</button>
+    <button class="tab" onclick="showDay(3)">الثلاثاء</button>
+    <button class="tab" onclick="showDay(4)">الأربعاء</button>
+    <button class="tab cardio-tab" onclick="showDay(5)">الخميس</button>
+    <button class="tab rest-tab" onclick="showDay(6)">الجمعة</button>
   </div>
   <div id="day-content"></div>
 </div>
@@ -304,7 +309,7 @@ body{font-family:'Cairo',-apple-system,sans-serif;background:var(--black);color:
   <div id="weekly-report"></div>
   <div class="stats-grid">
     <div class="stat-card"><div class="stat-val" id="s-sessions">0/4</div><div class="stat-lbl">الجلسات</div></div>
-    <div class="stat-card"><div class="stat-val" id="s-week">13</div><div class="stat-lbl">الأسبوع</div></div>
+    <div class="stat-card"><div class="stat-val" id="s-week">15</div><div class="stat-lbl">الأسبوع</div></div>
     <div class="stat-card"><div class="stat-val" id="s-total">0</div><div class="stat-lbl">كجم مرفوع</div></div>
     <div class="stat-card"><div class="stat-val" id="s-cardio">0</div><div class="stat-lbl">د كارديو</div></div>
     <div class="stat-card"><div class="stat-val" id="s-sauna">0</div><div class="stat-lbl">د سونا</div></div>
@@ -328,7 +333,7 @@ body{font-family:'Cairo',-apple-system,sans-serif;background:var(--black);color:
     <div class="p-row"><span class="p-label">السعرات اليومية</span><span class="p-val">1900 سعرة</span></div>
     <div class="p-row"><span class="p-label">البروتين</span><span class="p-val">150g يومياً</span></div>
     <div class="p-row"><span class="p-label">البرنامج</span><span class="p-val">Push/Pull + Core</span></div>
-    <div class="p-row"><span class="p-label">الأسبوع الحالي</span><span class="p-val" id="p-week">13</span></div>
+    <div class="p-row"><span class="p-label">الأسبوع الحالي</span><span class="p-val" id="p-week">15</span></div>
     <div class="p-row"><span class="p-label">نبضات القلب</span><span class="p-val">69 bpm ✅</span></div>
   </div>
 </div>
@@ -366,30 +371,32 @@ var DAYS=[
 ],cardio:20,sauna:10},
 
 {name:'الأحد',type:'lower',label:'Lower A + Core — أرجل + بطن',exercises:[
-{n:'Barbell Squat',s:4,r:12,w:50,rpe:7,icon:'🦵',color:'linear-gradient(135deg,#FF9F0A,#FFD60A)',desc:'البار على الترابس، انزل حتى يصبح الفخذ موازياً للأرض',yt:'https://www.youtube.com/watch?v=bEv6CCg2BC8'},
+{n:'Barbell Squat',s:4,r:20,w:80,rpe:7,icon:'🦵',color:'linear-gradient(135deg,#FF9F0A,#FFD60A)',desc:'البار على الترابس، انزل حتى يصبح الفخذ موازياً للأرض',yt:'https://www.youtube.com/watch?v=bEv6CCg2BC8',alts:[{n:'Belt Squat',w:80,desc:'الوزن معلّق على الحوض — يحمي أسفل الظهر تماماً'},{n:'Leg Press',w:120,desc:'قدماك بعرض الكتفين، انزل حتى 90 درجة ثم ادفع'}]},
 {n:'Leg Press',s:4,r:20,w:120,rpe:7,icon:'🦵',color:'linear-gradient(135deg,#FF9F0A,#FFD60A)',desc:'قدماك بعرض الكتفين، انزل حتى 90 درجة ثم ادفع',yt:'https://www.youtube.com/watch?v=IZxyjW7MPJQ'},
-{n:'Romanian Deadlift',s:4,r:12,w:50,rpe:7,icon:'🦵',color:'linear-gradient(135deg,#FF9F0A,#FFD60A)',desc:'ادفع الحوض للخلف مع ركبة مثنية قليلاً',yt:'https://www.youtube.com/watch?v=7j-2w4-P14I'},
+{n:'Romanian Deadlift',s:4,r:12,w:50,rpe:7,icon:'🦵',color:'linear-gradient(135deg,#FF9F0A,#FFD60A)',desc:'ادفع الحوض للخلف مع ركبة مثنية قليلاً',yt:'https://www.youtube.com/watch?v=7j-2w4-P14I',alts:[{n:'Stiff Leg Deadlift',w:40,desc:'مثل RDL لكن الركبة مستقيمة أكثر'}]},
 {n:'Leg Curl',s:3,r:12,w:40,rpe:7,icon:'🦵',color:'linear-gradient(135deg,#FF9F0A,#FFD60A)',desc:'اثنِ ركبتيك لسحب الوزن نحوك',yt:'https://www.youtube.com/watch?v=1Tq3QdYUuHs'},
-{n:'Standing Calf Raise',s:3,r:20,w:150,rpe:7,icon:'🦶',color:'linear-gradient(135deg,#FF375F,#FF6B8A)',desc:'ارفع على أصابع قدميك، انزل ببطء كامل',yt:'https://www.youtube.com/watch?v=gwLzBJYoWlI'}
+{n:'Standing Calf Raise',s:3,r:20,w:150,rpe:7,icon:'🦶',color:'linear-gradient(135deg,#FF375F,#FF6B8A)',desc:'ارفع على أصابع قدميك، انزل ببطء كامل',yt:'https://www.youtube.com/watch?v=gwLzBJYoWlI',alts:[{n:'Seated Calf Raise',w:135,desc:'ارفع كعبيك مع ثني الركبتين'}]}
 ],core:[
-{n:'Russian Twist',s:3,r:48,w:0,rpe:7,icon:'🔄',color:'linear-gradient(135deg,#BF5AF2,#DA8FFF)',desc:'استلقِ بزاوية 45 درجة، دوّر الجذع يميناً ويساراً — 48 (24 لكل جانب)',yt:'https://www.youtube.com/watch?v=wkD8rjkodUI'},
-{n:'Hanging Leg Raise',s:3,r:12,w:0,rpe:7,icon:'🧘',color:'linear-gradient(135deg,#BF5AF2,#DA8FFF)',desc:'تعلق على العقلة وارفع رجليك مستقيمتين',yt:'https://www.youtube.com/watch?v=hdng3Nm1x_E'},
-{n:'Plank',s:2,r:'1min',w:0,rpe:7,icon:'🧘',color:'linear-gradient(135deg,#BF5AF2,#DA8FFF)',desc:'جسمك خط مستقيم على المرفقين — دقيقة كاملة',yt:'https://www.youtube.com/watch?v=ASdvN_XEl_c'}
+{n:'Russian Twist',s:3,r:40,w:10,rpe:7,icon:'🔄',color:'linear-gradient(135deg,#BF5AF2,#DA8FFF)',desc:'استلقِ بزاوية 45 درجة، دوّر الجذع يميناً ويساراً',yt:'https://www.youtube.com/watch?v=wkD8rjkodUI',alts:[{n:'Heel Touch',w:0,desc:'الس كعبيك بالتناوب وأنت مستلقي'}]},
+{n:'Hanging Leg Raise',s:3,r:12,w:0,rpe:7,icon:'🧘',color:'linear-gradient(135deg,#BF5AF2,#DA8FFF)',desc:'تعلق على العقلة وارفع رجليك مستقيمتين',yt:'https://www.youtube.com/watch?v=hdng3Nm1x_E',alts:[{n:'Total Abdominal Machine',w:60,desc:'انحنِ للأمام بضغط البطن ضد مقاومة الجهاز'}]},
+{n:'Plank',s:2,r:'1min',w:0,rpe:7,icon:'🧘',color:'linear-gradient(135deg,#BF5AF2,#DA8FFF)',desc:'جسمك خط مستقيم على المرفقين — دقيقة كاملة',yt:'https://www.youtube.com/watch?v=ASdvN_XEl_c',alts:[{n:'Total Abdominal Machine',w:60,desc:'جهاز البطن'}]}
 ],cardio:15,sauna:10},
 
+{name:'الاثنين',type:'cardio',label:'كارديو فقط',exercises:[],cardio:45,sauna:10},
+
 {name:'الثلاثاء',type:'pull',label:'Upper Pull — ظهر + باي',exercises:[
-{n:'Barbell Row',s:4,r:15,w:20,rpe:7,icon:'🚣',color:'linear-gradient(135deg,#0A84FF,#64D2FF)',desc:'انحنِ للأمام 45 درجة، اسحب البار لبطنك',yt:'https://www.youtube.com/watch?v=FWJR5Ve8bnQ'},
-{n:'Lat Pulldown',s:4,r:12,w:40,rpe:7,icon:'🚣',color:'linear-gradient(135deg,#0A84FF,#64D2FF)',desc:'اسحب البار لصدرك مع إبقاء الصدر مرفوعاً',yt:'https://www.youtube.com/watch?v=CAwf7n6Luuc'},
-{n:'Dumbbell Row',s:3,r:15,w:14,rpe:7,icon:'🚣',color:'linear-gradient(135deg,#0A84FF,#64D2FF)',desc:'يد واحدة على البنش، اسحب الدمبل لجانبك',yt:'https://www.youtube.com/watch?v=pYcpY20QaE8'},
-{n:'Face Pull',s:4,r:15,w:15,rpe:7,icon:'🎯',color:'linear-gradient(135deg,#0A84FF,#64D2FF)',desc:'اسحب الحبل نحو وجهك مع فتح المرفقين',yt:'https://www.youtube.com/watch?v=rep-qVOkqgk'},
-{n:'Barbell Curl',s:4,r:12,w:20,rpe:7,icon:'💪',color:'linear-gradient(135deg,#FF2D55,#FF6B8A)',desc:'امسك البار واثنِ مرفقيك لرفعه للكتفين',yt:'https://www.youtube.com/watch?v=kwG2ipFRgfo'},
-{n:'Hammer Curl',s:4,r:12,w:12,rpe:7,icon:'💪',color:'linear-gradient(135deg,#FF2D55,#FF6B8A)',desc:'الدمبل عمودي، اثنِ المرفق للرفع ببطء',yt:'https://www.youtube.com/watch?v=zC3nLlEvin4'},
+{n:'Barbell Row',s:4,r:15,w:20,rpe:7,icon:'🚣',color:'linear-gradient(135deg,#0A84FF,#64D2FF)',desc:'انحنِ للأمام 45 درجة، اسحب البار لبطنك',yt:'https://www.youtube.com/watch?v=FWJR5Ve8bnQ',alts:[{n:'Low Row Machine',w:52,desc:'اسحب المقبض لبطنك مع ظهر مستقيم'},{n:'T-Row Bar',w:20,desc:'انحنِ واسحب البار نحو صدرك'},{n:'Row Machine',w:30,desc:'اسحب المقابض لجانبك — عزل ممتاز'}]},
+{n:'Lat Pulldown',s:4,r:12,w:45,rpe:7,icon:'🚣',color:'linear-gradient(135deg,#0A84FF,#64D2FF)',desc:'اسحب البار لصدرك مع إبقاء الصدر مرفوعاً',yt:'https://www.youtube.com/watch?v=CAwf7n6Luuc'},
+{n:'Dumbbell Row',s:3,r:15,w:14,rpe:7,icon:'🚣',color:'linear-gradient(135deg,#0A84FF,#64D2FF)',desc:'يد واحدة على البنش، اسحب الدمبل لجانبك',yt:'https://www.youtube.com/watch?v=pYcpY20QaE8',alts:[{n:'Row Machine',w:30,desc:'اسحب المقابض لجانبك — عزل ممتاز'}]},
+{n:'Face Pull',s:4,r:20,w:20,rpe:7,icon:'🎯',color:'linear-gradient(135deg,#0A84FF,#64D2FF)',desc:'اسحب الحبل نحو وجهك مع فتح المرفقين',yt:'https://www.youtube.com/watch?v=rep-qVOkqgk'},
+{n:'Barbell Curl',s:4,r:12,w:25,rpe:7,icon:'💪',color:'linear-gradient(135deg,#FF2D55,#FF6B8A)',desc:'امسك البار واثنِ مرفقيك لرفعه للكتفين',yt:'https://www.youtube.com/watch?v=kwG2ipFRgfo',alts:[{n:'Arm Curl Machine',w:0,desc:'اثنِ ذراعيك ضد مقاومة الجهاز — عزل تام للباي'}]},
+{n:'Hammer Curl',s:4,r:12,w:14,rpe:7,icon:'💪',color:'linear-gradient(135deg,#FF2D55,#FF6B8A)',desc:'الدمبل عمودي، اثنِ المرفق للرفع ببطء',yt:'https://www.youtube.com/watch?v=zC3nLlEvin4'},
 {n:'Incline Dumbbell Curl',s:4,r:10,w:12,rpe:7,icon:'💪',color:'linear-gradient(135deg,#FF2D55,#FF6B8A)',desc:'استلقِ على بنش مائل للخلف، كيرل بالدمبل',yt:'https://www.youtube.com/watch?v=soxrZlIl35U'}
 ],cardio:20,sauna:10},
 
 {name:'الأربعاء',type:'lower',label:'Lower B + Core — أرجل + بطن',exercises:[
 {n:'Leg Press',s:4,r:20,w:120,rpe:7,icon:'🦵',color:'linear-gradient(135deg,#FF9F0A,#FFD60A)',desc:'قدماك أعلى على المنصة لتركيز على الخلفية',yt:'https://www.youtube.com/watch?v=IZxyjW7MPJQ'},
-{n:'Bulgarian Split Squat',s:3,r:15,w:14,rpe:7,icon:'🦵',color:'linear-gradient(135deg,#FF9F0A,#FFD60A)',desc:'رجل خلفية على البنش، انزل ثم اصعد',yt:'https://www.youtube.com/watch?v=2C-uNgKwPLE'},
+{n:'Bulgarian Split Squat',s:3,r:15,w:14,rpe:7,icon:'🦵',color:'linear-gradient(135deg,#FF9F0A,#FFD60A)',desc:'رجل خلفية على البنش، انزل ثم اصعد',yt:'https://www.youtube.com/watch?v=2C-uNgKwPLE',alts:[{n:'Belt Squat',w:80,desc:'الوزن معلّق على الحوض'}]},
 {n:'Stiff Leg Deadlift',s:4,r:12,w:40,rpe:7,icon:'🦵',color:'linear-gradient(135deg,#FF9F0A,#FFD60A)',desc:'مثل RDL لكن الركبة مستقيمة أكثر',yt:'https://www.youtube.com/watch?v=1uDiW5--rAE'},
 {n:'Hip Thrust',s:3,r:12,w:40,rpe:7,icon:'🍑',color:'linear-gradient(135deg,#FF9F0A,#FFD60A)',desc:'ادفع الحوض لأعلى واضغط المؤخرة في القمة',yt:'https://www.youtube.com/watch?v=SEdqd1n0cvg'},
 {n:'Seated Calf Raise',s:3,r:20,w:135,rpe:7,icon:'🦶',color:'linear-gradient(135deg,#FF375F,#FF6B8A)',desc:'ارفع على أصابع قدميك مع ثني الركبتين',yt:'https://www.youtube.com/watch?v=JbyjNymZOt0'}
@@ -427,9 +434,9 @@ snack:[
 };
 
 // ===== STATE =====
-var curDay=0,logged={},coreLogged={},routineLog={},selMeals={breakfast:null,lunch:null,dinner:null,snack:null};
+var curDay=0,selectedAlts={},logged={},coreLogged={},routineLog={},selMeals={breakfast:null,lunch:null,dinner:null,snack:null};
 var health={burned:0,steps:0,active:0,heart:0,sleep:0,water:0,weight:92,startWeight:92};
-var progress=[],customMeals=[],weeklyHistory=[],currentWeek=13;
+var progress=[],customMeals=[],weeklyHistory=[],currentWeek=15;
 
 // ===== NAVIGATION =====
 function showSec(id,btn){
@@ -466,10 +473,23 @@ function renderDay(){
     day.exercises.forEach((e,i)=>{
       var k=curDay+'-'+i;
       var l=logged[k];
-      h+='<div class="card"><div class="ex-hdr"><div class="ex-icon" style="background:'+e.color+'">'+e.icon+'</div><div class="ex-info"><div class="ex-name">'+e.n+'</div><div class="ex-meta">'+e.s+' × '+e.r+' @ '+e.w+'kg • RPE '+e.rpe+'</div></div>'+(l?'<span class="ex-badge">✓ تم</span>':'')+'</div>';
-      if(e.desc)h+='<div class="ex-desc">'+e.desc+'</div>';
-      if(e.yt)h+='<a href="'+e.yt+'" target="_blank" class="yt-btn">▶️ شاهد الشرح</a>';
-      h+=buildInputs(k,e,l);
+      // نظام البدائل: بناء قائمة الخيارات (الأساسي + البدائل)
+      var opts=[{n:e.n,w:e.w,desc:e.desc}].concat(e.alts||[]);
+      var sel=selectedAlts[k]||0;
+      var cur=opts[sel];
+      h+='<div class="card">';
+      // شرائح البدائل
+      if(opts.length>1){
+        h+='<div class="alt-row">';
+        opts.forEach(function(o,oi){
+          h+='<div class="alt-chip'+(oi===sel?' active':'')+'" onclick="pickAlt(\''+k+'\','+oi+')">'+o.n+'</div>';
+        });
+        h+='</div>';
+      }
+      h+='<div class="ex-hdr"><div class="ex-icon" style="background:'+e.color+'">'+e.icon+'</div><div class="ex-info"><div class="ex-name">'+cur.n+'</div><div class="ex-meta">'+e.s+' × '+e.r+' @ '+cur.w+'kg • RPE '+e.rpe+'</div></div>'+(l?'<span class="ex-badge">✓ تم</span>':'')+'</div>';
+      if(cur.desc)h+='<div class="ex-desc">'+cur.desc+'</div>';
+      if(e.yt&&sel===0)h+='<a href="'+e.yt+'" target="_blank" class="yt-btn">▶️ شاهد الشرح</a>';
+      h+=buildInputsAlt(k,e,l,cur);
       h+='<button class="log-btn'+(l?' logged':'')+'" onclick="toggleLog(\''+k+'\','+i+')">'+(l?'✓ تم التسجيل — اضغط للإلغاء':'سجّل التمرين')+'</button></div>';
     });
 
@@ -478,10 +498,21 @@ function renderDay(){
       day.core.forEach((e,i)=>{
         var k=curDay+'-core-'+i;
         var l=coreLogged[k];
-        h+='<div class="card"><div class="ex-hdr"><div class="ex-icon" style="background:'+e.color+'">'+e.icon+'</div><div class="ex-info"><div class="ex-name">'+e.n+'</div><div class="ex-meta">'+e.s+' × '+e.r+(e.w?' @ '+e.w+'kg':'')+' • RPE '+e.rpe+'</div></div>'+(l?'<span class="ex-badge">✓</span>':'')+'</div>';
-        if(e.desc)h+='<div class="ex-desc">'+e.desc+'</div>';
-        if(e.yt)h+='<a href="'+e.yt+'" target="_blank" class="yt-btn">▶️ شرح</a>';
-        h+=buildCoreInputs(k,e,l);
+        var opts=[{n:e.n,w:e.w,desc:e.desc}].concat(e.alts||[]);
+        var sel=selectedAlts[k]||0;
+        var cur=opts[sel];
+        h+='<div class="card">';
+        if(opts.length>1){
+          h+='<div class="alt-row">';
+          opts.forEach(function(o,oi){
+            h+='<div class="alt-chip'+(oi===sel?' active':'')+'" onclick="pickAlt(\''+k+'\','+oi+')">'+o.n+'</div>';
+          });
+          h+='</div>';
+        }
+        h+='<div class="ex-hdr"><div class="ex-icon" style="background:'+e.color+'">'+e.icon+'</div><div class="ex-info"><div class="ex-name">'+cur.n+'</div><div class="ex-meta">'+e.s+' × '+e.r+(cur.w?' @ '+cur.w+'kg':'')+' • RPE '+e.rpe+'</div></div>'+(l?'<span class="ex-badge">✓</span>':'')+'</div>';
+        if(cur.desc)h+='<div class="ex-desc">'+cur.desc+'</div>';
+        if(e.yt&&sel===0)h+='<a href="'+e.yt+'" target="_blank" class="yt-btn">▶️ شرح</a>';
+        h+=buildCoreInputsAlt(k,e,l,cur);
         h+='<button class="log-btn'+(l?' logged':'')+'" onclick="toggleCoreLog(\''+k+'\','+i+')">'+(l?'✓ تم — اضغط للإلغاء':'سجّل')+'</button></div>';
       });
       h+='</div>';
@@ -496,8 +527,21 @@ function buildInputs(k,e,l){
   return '<div class="inputs"><div class="inp-g"><label>SETS</label><input type="number" value="'+(l?l.s:e.s)+'" id="s'+k+'"></div><div class="inp-g"><label>REPS</label><input type="number" value="'+(l?l.r:e.r)+'" id="r'+k+'"></div><div class="inp-g"><label>KG</label><input type="number" value="'+(l?l.w:e.w)+'" id="w'+k+'"></div><div class="inp-g"><label>RPE</label><input type="number" value="'+(l?l.rpe:e.rpe)+'" id="p'+k+'" min="1" max="10"></div></div>';
 }
 
+function buildInputsAlt(k,e,l,cur){
+  return '<div class="inputs"><div class="inp-g"><label>SETS</label><input type="number" value="'+(l?l.s:e.s)+'" id="s'+k+'"></div><div class="inp-g"><label>REPS</label><input type="number" value="'+(l?l.r:e.r)+'" id="r'+k+'"></div><div class="inp-g"><label>KG</label><input type="number" value="'+(l?l.w:cur.w)+'" id="w'+k+'"></div><div class="inp-g"><label>RPE</label><input type="number" value="'+(l?l.rpe:e.rpe)+'" id="p'+k+'" min="1" max="10"></div></div>';
+}
+
+function pickAlt(k,oi){
+  selectedAlts[k]=oi;
+  renderDay();save();
+}
+
 function buildCoreInputs(k,e,l){
   return '<div class="inputs"><div class="inp-g"><label>SETS</label><input type="number" value="'+(l?l.s:e.s)+'" id="cs'+k+'"></div><div class="inp-g"><label>REPS</label><input type="text" value="'+(l?l.r:e.r)+'" id="cr'+k+'"></div><div class="inp-g"><label>KG</label><input type="number" value="'+(l?l.w:e.w)+'" id="cw'+k+'"></div><div class="inp-g"><label>RPE</label><input type="number" value="'+(l?l.rpe:e.rpe)+'" id="cp'+k+'" min="1" max="10"></div></div>';
+}
+
+function buildCoreInputsAlt(k,e,l,cur){
+  return '<div class="inputs"><div class="inp-g"><label>SETS</label><input type="number" value="'+(l?l.s:e.s)+'" id="cs'+k+'"></div><div class="inp-g"><label>REPS</label><input type="text" value="'+(l?l.r:e.r)+'" id="cr'+k+'"></div><div class="inp-g"><label>KG</label><input type="number" value="'+(l?l.w:cur.w)+'" id="cw'+k+'"></div><div class="inp-g"><label>RPE</label><input type="number" value="'+(l?l.rpe:e.rpe)+'" id="cp'+k+'" min="1" max="10"></div></div>';
 }
 
 function buildRoutine(day){
@@ -525,9 +569,12 @@ function toggleLog(k,i){
     var r=parseInt(document.getElementById('r'+k).value)||0;
     var w=parseInt(document.getElementById('w'+k).value)||0;
     var p=parseInt(document.getElementById('p'+k).value)||0;
-    logged[k]={s,r,w,rpe:p,date:new Date().toLocaleDateString('ar-EG')};
     var e=DAYS[curDay].exercises[i];
-    if(w>e.w)progress.push({n:e.n,w,d:new Date().getDate()+'/'+(new Date().getMonth()+1)});
+    var opts=[{n:e.n,w:e.w}].concat(e.alts||[]);
+    var sel=selectedAlts[k]||0;
+    var exName=opts[sel].n;
+    logged[k]={s,r,w,rpe:p,name:exName,date:new Date().toLocaleDateString('ar-EG')};
+    if(w>opts[sel].w)progress.push({n:exName,w,d:new Date().getDate()+'/'+(new Date().getMonth()+1)});
   }
   renderDay();save();
 }
@@ -539,7 +586,10 @@ function toggleCoreLog(k,i){
     var r=document.getElementById('cr'+k).value||0;
     var w=parseInt(document.getElementById('cw'+k).value)||0;
     var p=parseInt(document.getElementById('cp'+k).value)||0;
-    coreLogged[k]={s,r,w,rpe:p,date:new Date().toLocaleDateString('ar-EG')};
+    var e=DAYS[curDay].core[i];
+    var opts=[{n:e.n,w:e.w}].concat(e.alts||[]);
+    var sel=selectedAlts[k]||0;
+    coreLogged[k]={s,r,w,rpe:p,name:opts[sel].n,date:new Date().toLocaleDateString('ar-EG')};
   }
   renderDay();save();
 }
@@ -630,8 +680,8 @@ function exportReport(){
   var total=0;
   for(var k in logged){var l=logged[k];if(l.w)total+=l.w*l.s*l.r;}
   var rep='📊 تقرير AMR Fitness\n━━━━━━━━━━━━━━━━━━━━\n📅 الأسبوع: '+currentWeek+'\n📆 التاريخ: '+new Date().toLocaleDateString('ar-EG')+'\n\n🏋️ الجلسات: '+sessions+'/4\n🚶 الكارديو: '+cardio+' دقيقة\n🧖 السونا: '+sauna+' دقيقة\n🔥 تمارين البطن: '+core+'\n💪 الأوزان: '+Math.round(total)+' kg\n⚖️ الوزن: '+health.weight+' kg\n👟 الخطوات: '+health.steps+'\n❤️ نبض القلب: '+health.heart+'\n💧 الماء: '+health.water+' أكواب\n\n📝 التمارين المسجلة:\n';
-  for(var k in logged){var pts=k.split('-');var d=parseInt(pts[0]);var i=parseInt(pts[1]);if(DAYS[d]&&DAYS[d].exercises[i]){var e=DAYS[d].exercises[i];var l=logged[k];rep+=DAYS[d].name+': '+e.n+' — '+l.s+'×'+l.r+' @ '+l.w+'kg (RPE '+l.rpe+')\n';}}
-  for(var k in coreLogged){var pts=k.split('-');var d=parseInt(pts[0]);var ci=parseInt(pts[2]);if(DAYS[d]&&DAYS[d].core&&DAYS[d].core[ci]){var e=DAYS[d].core[ci];var l=coreLogged[k];rep+=DAYS[d].name+': '+e.n+' — '+l.s+'×'+l.r+(l.w?' @ '+l.w+'kg':'')+' (RPE '+l.rpe+')\n';}}
+  for(var k in logged){var pts=k.split('-');var d=parseInt(pts[0]);var i=parseInt(pts[1]);if(DAYS[d]&&DAYS[d].exercises[i]){var e=DAYS[d].exercises[i];var l=logged[k];var nm=l.name||e.n;rep+=DAYS[d].name+': '+nm+' — '+l.s+'×'+l.r+' @ '+l.w+'kg (RPE '+l.rpe+')\n';}}
+  for(var k in coreLogged){var pts=k.split('-');var d=parseInt(pts[0]);var ci=parseInt(pts[2]);if(DAYS[d]&&DAYS[d].core&&DAYS[d].core[ci]){var e=DAYS[d].core[ci];var l=coreLogged[k];var nm=l.name||e.n;rep+=DAYS[d].name+': '+nm+' — '+l.s+'×'+l.r+(l.w?' @ '+l.w+'kg':'')+' (RPE '+l.rpe+')\n';}}
   rep+='\n━━━━━━━━━━━━━━━━━━━━';
   if(navigator.share)navigator.share({title:'تقرير AMR Fitness',text:rep}).catch(()=>copyText(rep));
   else copyText(rep);
@@ -755,7 +805,7 @@ function delCustomMeal(i){customMeals.splice(i,1);renderCustomMeals();updateMacr
 
 // ===== SAVE / LOAD =====
 function save(){
-  try{localStorage.setItem('amr_fit_pro',JSON.stringify({logged,coreLogged,routineLog,selMeals,health,progress,customMeals,weeklyHistory,currentWeek}));}catch(e){}
+  try{localStorage.setItem('amr_fit_pro',JSON.stringify({logged,coreLogged,routineLog,selMeals,selectedAlts,health,progress,customMeals,weeklyHistory,currentWeek}));}catch(e){}
 }
 
 function load(){
@@ -763,11 +813,11 @@ function load(){
     var d=localStorage.getItem('amr_fit_pro');
     if(d){
       var p=JSON.parse(d);
-      logged=p.logged||{};coreLogged=p.coreLogged||{};routineLog=p.routineLog||{};
+      logged=p.logged||{};coreLogged=p.coreLogged||{};routineLog=p.routineLog||{};selectedAlts=p.selectedAlts||{};
       selMeals=p.selMeals||{breakfast:null,lunch:null,dinner:null,snack:null};
       health=p.health||{burned:0,steps:0,active:0,heart:0,sleep:0,water:0,weight:92,startWeight:92};
       progress=p.progress||[];customMeals=p.customMeals||[];weeklyHistory=p.weeklyHistory||[];
-      currentWeek=p.currentWeek||13;
+      currentWeek=p.currentWeek||15;
       document.getElementById('h-burned').textContent=Math.round(health.burned);
       document.getElementById('h-steps').textContent=health.steps.toLocaleString();
       document.getElementById('h-active').textContent=Math.round(health.active);
